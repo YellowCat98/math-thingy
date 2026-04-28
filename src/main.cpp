@@ -71,7 +71,7 @@ void update(sf::RenderWindow& window) {
             window.close();
 
 		if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
-			if (keyPressed->scancode == sf::Keyboard::Scancode::N) {
+			if (keyPressed->scancode == sf::Keyboard::Scancode::Q) {
 				window.setVisible(false);
 				std::string name;
 				std::string expr;
@@ -91,6 +91,11 @@ void update(sf::RenderWindow& window) {
 				}
 				window.setVisible(true);
 				continue;
+			} else if (keyPressed->scancode == sf::Keyboard::Scancode::W) {
+				window.setVisible(false);
+				std::print("Step: ");
+				std::cin >> globals::step;
+				window.setVisible(true);
 			}
 		}
     }
