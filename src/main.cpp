@@ -113,16 +113,16 @@ void update(sf::RenderWindow& window) {
 
 	// draw axes
 
-	for (float x = -10, y = -10; x < 10; x++, y++) {
+	for (float i = -10; i < 10; i++) {
 		sf::VertexArray xaxis(sf::PrimitiveType::Lines, 2);
-		xaxis[0].position = {x, -10};
-		xaxis[1].position = {x, 10};
+		xaxis[0].position = {i, -10};
+		xaxis[1].position = {i, 10};
 		xaxis[0].color = sf::Color(0, 0, 0, 64);
 		xaxis[1].color = sf::Color(0, 0, 0, 64);
 
 		sf::VertexArray yaxis(sf::PrimitiveType::Lines, 2);
-		yaxis[0].position = {-10, y};
-		yaxis[1].position = {10, y};
+		yaxis[0].position = {-10, i};
+		yaxis[1].position = {10, i};
 		yaxis[0].color = sf::Color(0, 0, 0, 64);
 		yaxis[1].color = sf::Color(0, 0, 0, 64);
 
