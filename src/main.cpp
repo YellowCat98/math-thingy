@@ -64,11 +64,11 @@ void refreshGraphs() {
 void addNewFunction(const std::string& name, const std::string& expression, const std::string& color) {
 	mu::Parser parser;
 	parser.SetExpr(expression);
-	globals::functions.insert({name, FunctionData{
+	globals::functions.insert_or_assign(name, FunctionData{
 		.expression = expression,
 		.parser = parser,
 		.color = colorFromString(color)
-	}});
+	});
 }
 
 void update(sf::RenderWindow& window) {
