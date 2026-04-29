@@ -44,7 +44,6 @@ sf::Color colorFromString(const std::string& name) {
 
 void createGraph(FunctionData& data) {
 	double x = -10.0;
-
 	data.parser.DefineVar("x", &x);
 
 	while (x <= 10.0f) {
@@ -52,6 +51,13 @@ void createGraph(FunctionData& data) {
 		float y = data.parser.Eval();
 		data.graph.push_back({x, y});
 		x+=globals::step;
+	}
+}
+
+void refreshGraphs() {
+	for (auto& [k, v] : globals::functions) {
+		v.graph = {};
+		createGraph(v);
 	}
 }
 
@@ -90,19 +96,40 @@ void update(sf::RenderWindow& window) {
 					std::println("Err: {}", e.GetMsg());
 				}
 				window.setVisible(true);
+				refreshGraphs();
 				continue;
 			} else if (keyPressed->scancode == sf::Keyboard::Scancode::W) {
 				window.setVisible(false);
 				std::print("Step: ");
 				std::cin >> globals::step;
 				window.setVisible(true);
+				refreshGraphs();
+				continue;
 			}
 		}
     }
 
     window.clear(sf::Color::White);
 
-	// draw xy axises
+	// draw axes
+
+	for (float x = -10, y = -10; x < 10; x++, y++) {
+		sf::VertexArray xaxis(sf::PrimitiveType::Lines, 2);
+		xaxis[0].position = {x, -10};
+		xaxis[1].position = {x, 10};
+		xaxis[0].color = sf::Color(0, 0, 0, 64);
+		xaxis[1].color = sf::Color(0, 0, 0, 64);
+
+		sf::VertexArray yaxis(sf::PrimitiveType::Lines, 2);
+		yaxis[0].position = {-10, y};
+		yaxis[1].position = {10, y};
+		yaxis[0].color = sf::Color(0, 0, 0, 64);
+		yaxis[1].color = sf::Color(0, 0, 0, 64);
+
+		window.draw(xaxis);
+		window.draw(yaxis);
+	}
+
 	sf::VertexArray xaxis(sf::PrimitiveType::Lines, 2);
 	xaxis[0].position = {0, 10};
 	xaxis[1].position = {0, -10};
